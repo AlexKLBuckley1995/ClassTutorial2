@@ -16,6 +16,8 @@ namespace Version_2_C
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             clsPainting.LoadPaintingForm = new clsPainting.LoadPaintingFormDelegate(frmPainting.Run); //This is the assignment of the method Run that the LoadPaintingFormDelegate delegate must use to the LoadPaintingForm variable
+            clsPhotograph.LoadPhotoForm = new clsPhotograph.LoadPhotoFormDelegate(frmPhotograph.Run);
+            clsSculpture.LoadSculptureForm = new clsSculpture.LoadSculptureFormDelegate(frmSculpture.Run);
             Application.Run(new frmMain());
         }
     }

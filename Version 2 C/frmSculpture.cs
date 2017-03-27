@@ -11,6 +11,11 @@ namespace Version_2_C
               InitializeComponent();
         }
 
+        public static void Run(clsSculpture prSculpture) //This function prevents the instantiation of frmSculpture forms we may never use
+        {
+            Instance.SetDetails(prSculpture);
+        }
+
         protected override void updateForm()
         {
             base.updateForm();

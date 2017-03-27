@@ -9,6 +9,11 @@ namespace Version_2_C
             InitializeComponent();
         }
 
+        public static void Run(clsPhotograph prPhotograph)
+        {
+            Instance.SetDetails(prPhotograph);
+        }
+
         protected override void updateForm()
         {
             base.updateForm();
