@@ -9,6 +9,11 @@ namespace Version_2_C
             InitializeComponent();
         }
 
+        public static void Run(clsPainting prPainting) //This prevents instantiating frmPainting forms we may never use 
+        {
+            Instance.SetDetails(prPainting);
+        }
+
         protected override void updateForm()
         {
             base.updateForm();
