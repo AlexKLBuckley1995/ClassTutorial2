@@ -1,7 +1,9 @@
 namespace Version_2_C
 {
-    public partial class frmPhotograph : Version_2_C.frmWork
+    sealed public partial class frmPhotograph : Version_2_C.frmWork
     {
+        public static readonly frmPhotograph Instance = new frmPhotograph();
+
         public frmPhotograph()
         {
             InitializeComponent();
