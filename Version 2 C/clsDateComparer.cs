@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 namespace Version_2_C
 {
-    class clsDateComparer : IComparer<clsWork>
+    sealed class clsDateComparer : IComparer<clsWork> //Sealed means you can't extend clsDateComparer with inheritance
     {
+        private clsDateComparer() {}
+        public static readonly clsDateComparer Instance = new clsDateComparer(); //Generates a singleton
+
+
         public int Compare(clsWork x, clsWork y)
         {
             //DateTime lcDateX = x.Date;

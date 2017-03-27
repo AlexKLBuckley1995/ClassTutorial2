@@ -3,8 +3,11 @@ using System.Collections.Generic;
 
 namespace Version_2_C
 {
-    class clsNameComparer : IComparer<clsWork>
+    sealed class clsNameComparer : IComparer<clsWork> //Sealed means you cant extend this class with inheritance
     {
+        public clsNameComparer() {}
+        public static readonly clsNameComparer Instance = new clsNameComparer(); //Generates the singleton
+
         public int Compare(clsWork x, clsWork y)
         {
             string lcNameX = x.Name;
