@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Version_2_C
 {
@@ -10,13 +11,16 @@ namespace Version_2_C
             InitializeComponent();
         }
 
+        //Instantiate a dictionary container to hold several artist forms. Each artist form is associated with a single artist instance
+        private static Dictionary<clsArtist, frmArtist> _ArtistFormList = new Dictionary<clsArtist, frmArtist>();
+
         private clsArtist _Artist;
         private clsWorksList _WorksList;
 
 
         private void updateDisplay()
         {
-            txtName.Enabled = txtName.Text == "";
+        //    txtName.Enabled = txtName.Text == "";
             if (_WorksList.SortOrder == 0)
             {
                 _WorksList.SortByName();
@@ -33,12 +37,29 @@ namespace Version_2_C
             lblTotal.Text = Convert.ToString(_WorksList.GetTotalValue());
         }
 
+        public static void Run(clsArtist prArtist) //This Run function checks if a form is associated with an artist and either instantiates a new form or shows and activates an existing form
+        {
+            frmArtist lcArtistForm;
+            if (!_ArtistFormList.TryGetValue(prArtist, out lcArtistForm)) //Check if a form is associated with an artist
+            {
+                lcArtistForm = new frmArtist(); //If there is no form associated with an artist then instantiate a new form
+                _ArtistFormList.Add(prArtist, lcArtistForm);
+                lcArtistForm.SetDetails(prArtist);
+            }
+            else
+            { //If a form is associated with an artist then show and activate that form
+                lcArtistForm.Show();
+                lcArtistForm.Activate();
+            }
+        }
+
         public void SetDetails(clsArtist prArtist)
         {
             _Artist = prArtist;
+            txtName.Enabled = string.IsNullOrEmpty(_Artist.Name);
             updateForm();
             updateDisplay();
-            ShowDialog();
+            Show(); //Using Show() rather than ShowDialog() creates asynchroous threads of execution
         }
 
         private void updateForm()
@@ -80,10 +101,22 @@ namespace Version_2_C
         private void btnClose_Click(object sender, EventArgs e)
         {
             if (isValid() == true)
-            {
-                pushData();
-                Close();
-            }
+                try
+                {
+                    pushData();
+                    if (txtName.Enabled) //If txtName is enabled we are adding a new artist
+                    {
+                        _Artist.NewArtist(); //Create a new artist
+                        MessageBox.Show("Artist added!", "Success");
+                        frmMain.Instance.UpdateDisplay(); //We call UpdateDisplay() to ensure the artist list on the main form is refreshed
+                        txtName.Enabled = false; //If the new artist was created successfully we disable the txtName to indicate the artist exists
+                    }
+                    Hide(); //Hide the frmArtist if the new artist was created successfully
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message); //If the artist was not successfully created then the exception error is printed out on a messagebox
+                }
         }
 
         private Boolean isValid()

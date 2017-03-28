@@ -22,7 +22,7 @@ namespace Version_2_C
             }
         }
 
-        private void updateDisplay()
+        public void UpdateDisplay()
         {
             lstArtists.DataSource = null;
             string[] lcDisplayList = new string[_ArtistList.Count];
@@ -35,9 +35,10 @@ namespace Version_2_C
         {
             try
             {
-                _ArtistList.NewArtist();
-                MessageBox.Show("Artist added!", "Success");
-                updateDisplay();
+                frmArtist.Run(new clsArtist(_ArtistList)); //Add a new clsArtist to clsArtistList
+ //               _ArtistList.NewArtist();
+ //               MessageBox.Show("Artist added!", "Success");
+ //               updateDisplay();
             }
             catch (Exception ex)
             {
@@ -53,8 +54,9 @@ namespace Version_2_C
             if (lcKey != null)
                 try
                 {
-                    _ArtistList.EditArtist(lcKey);
-                    updateDisplay();
+                    frmArtist.Run(_ArtistList[lcKey]); //Call the Run function in frmArtist to determine whether to instanitate a new frmArtist or show and activate a existing one in the _ArtistFormList dictionary
+//                    _ArtistList.EditArtist(lcKey);
+  //                  updateDisplay();
                 }
                 catch (Exception ex)
                 {
@@ -85,7 +87,7 @@ namespace Version_2_C
                 {
                     _ArtistList.Remove(lcKey);
                     lstArtists.ClearSelected();
-                    updateDisplay();
+                    UpdateDisplay();
 
                 }
                 catch (Exception ex)
@@ -105,7 +107,7 @@ namespace Version_2_C
             {
                 MessageBox.Show(ex.Message, "File retrieve error");
             }
-            updateDisplay();
+            UpdateDisplay();
         }
     }
 }
