@@ -18,7 +18,7 @@ namespace Version_2_C
             clsPainting.LoadPaintingForm = new clsPainting.LoadPaintingFormDelegate(frmPainting.Run); //This is the assignment of the method Run that the LoadPaintingFormDelegate delegate must use to the LoadPaintingForm variable
             clsPhotograph.LoadPhotoForm = new clsPhotograph.LoadPhotoFormDelegate(frmPhotograph.Run);
             clsSculpture.LoadSculptureForm = new clsSculpture.LoadSculptureFormDelegate(frmSculpture.Run);
-            Application.Run(new frmMain());
+            Application.Run(frmMain.Instance);
         }
     }
 }

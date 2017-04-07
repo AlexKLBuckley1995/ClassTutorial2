@@ -15,7 +15,7 @@ namespace Version_2_C
         public void SetDetails(clsWork prWork)
         {
             _Work = prWork;
-            updateForm();
+             updateForm();
             ShowDialog();
         }
 

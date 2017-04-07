@@ -20,7 +20,8 @@ namespace Version_2_C
 
         private void updateDisplay()
         {
-        //    txtName.Enabled = txtName.Text == "";
+            //    txtName.Enabled = txtName.Text == "";
+            txtName.Enabled = string.IsNullOrEmpty(_Artist.Name); //This makes sure the txtName in frmArtist is only enabled if the field is empty after it has loaded
             if (_WorksList.SortOrder == 0)
             {
                 _WorksList.SortByName();
@@ -85,6 +86,7 @@ namespace Version_2_C
             {
                 _WorksList.RemoveAt(lcIndex);
                 updateDisplay();
+                frmMain.Instance.UpdateDisplay();
             }
         }
 
@@ -95,6 +97,7 @@ namespace Version_2_C
             {
                 _WorksList.AddWork(lcReply[0]);
                 updateDisplay();
+                frmMain.Instance.UpdateDisplay();
             }
         }
 
@@ -108,9 +111,10 @@ namespace Version_2_C
                     {
                         _Artist.NewArtist(); //Create a new artist
                         MessageBox.Show("Artist added!", "Success");
-                        frmMain.Instance.UpdateDisplay(); //We call UpdateDisplay() to ensure the artist list on the main form is refreshed
+                        //frmMain.Instance.UpdateDisplay();  This is commented because it must always be run even if the txtname is not enabled so has been placed outside this if block
                         txtName.Enabled = false; //If the new artist was created successfully we disable the txtName to indicate the artist exists
                     }
+                    frmMain.Instance.UpdateDisplay();//We call UpdateDisplay() to ensure the artist list on the main form is refreshed
                     Hide(); //Hide the frmArtist if the new artist was created successfully
                 }
                 catch (Exception ex)

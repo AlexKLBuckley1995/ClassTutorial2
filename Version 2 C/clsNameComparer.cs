@@ -5,8 +5,16 @@ namespace Version_2_C
 {
     sealed class clsNameComparer : IComparer<clsWork> //Sealed means you cant extend this class with inheritance
     {
-        public clsNameComparer() {}
-        public static readonly clsNameComparer Instance = new clsNameComparer(); //Generates the singleton
+        private clsNameComparer() {}
+        private static readonly clsNameComparer _Instance = new clsNameComparer(); //Generates the singleton
+
+        public static clsNameComparer Instance
+        {
+            get
+            {
+                return _Instance;
+            }
+        }
 
         public int Compare(clsWork x, clsWork y)
         {

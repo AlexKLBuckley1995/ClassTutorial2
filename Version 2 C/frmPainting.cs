@@ -4,7 +4,7 @@ namespace Version_2_C
     {
         public static readonly frmPainting Instance = new frmPainting();
 
-        public frmPainting()
+        private frmPainting()
         {
             InitializeComponent();
         }

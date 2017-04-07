@@ -8,6 +8,8 @@ namespace Version_2_C
     {
         private byte _SortOrder;
 
+        //clsDateComparer dc = new clsDateComparer();
+
         public void AddWork(char prChoice)
         {
             clsWork lcWork = clsWork.NewWork(prChoice);

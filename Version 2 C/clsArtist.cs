@@ -26,6 +26,11 @@ namespace Version_2_C
  //           EditDetails();
         }
 
+        public override string ToString()
+        {
+            return Name + ", " + Speciality;
+        }
+
         public void NewArtist() //NewArtist() function has been moved to this class from clsArtistList so we can add a new artist 
         {
             if (!string.IsNullOrEmpty(Name))
